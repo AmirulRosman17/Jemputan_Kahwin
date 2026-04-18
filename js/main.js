@@ -250,39 +250,34 @@ function createPetal() {
         const petal = document.createElement('div');
         petal.className = 'petal';
 
-        // 1. Set a random starting rotation (0 to 360 degrees)
-        const startRotation = Math.random() * 360;
-        
-        const startY = Math.random() * 100; 
-        const duration = 4 + Math.random() * 2; 
-        const petalSize = 5 + Math.random() * 10; 
-        const petalOpacity = 0.3 + Math.random() * 0.5; 
+        const startY = Math.random() * 100; // Randomized vertical start position
+        const duration = 4 + Math.random() * 2; // Randomized animation duration (4 to 6 seconds)
 
-        // Apply styles
-        petal.style.top = `${startY}%`; 
+        const petalSize = 5 + Math.random() * 10; // Random size between 5px and 20px
+
+        // Randomize the opacity between 0.3 and 0.8 for varied transparency
+        const petalOpacity = 0.3 + Math.random() * 0.5; // Randomized opacity
+
+        petal.style.top = `${startY}%`; // Randomized starting vertical position
         petal.style.width = `${petalSize}px`;
         petal.style.height = `${petalSize}px`;
-        petal.style.opacity = petalOpacity; 
-        petal.style.animationDuration = `${duration}s`; 
+        petal.style.opacity = petalOpacity; // Set the random opacity
+        petal.style.animationDuration = `${duration}s`; // Randomized animation duration
 
-        // 2. Apply the initial rotation style
-        petal.style.transform = `rotate(${startRotation}deg)`;
+        // Randomize the final translation for X and Y for varied movement
+        const translateX = 300 + Math.random() * 120; // TranslateX with some randomness
+        const translateY = 300 + Math.random() * 120; // TranslateY with some randomness
 
-        const translateX = 300 + Math.random() * 120; 
-        const translateY = 300 + Math.random() * 120; 
-
-        petal.style.setProperty('--translate-x', `${translateX}px`); 
-        petal.style.setProperty('--translate-y', `${translateY}px`); 
+        petal.style.setProperty('--translate-x', `${translateX}px`); // Set variable for translation X
+        petal.style.setProperty('--translate-y', `${translateY}px`); // Set variable for translation Y
 
         petalContainer.appendChild(petal);
 
+        // Ensure the petal is removed only after the animation completes
         setTimeout(() => {
-            if (petalContainer.contains(petal)) {
-                petalContainer.removeChild(petal);
-            }
-        }, duration * 1000); 
+            petalContainer.removeChild(petal);
+        }, duration * 1000); // Convert duration to milliseconds
     }
-}
 }
 
 // Create petals at a shorter interval with the defined interval time
