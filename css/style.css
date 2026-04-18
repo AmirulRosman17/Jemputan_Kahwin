@@ -1,0 +1,1436 @@
+/* Import */
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:wght@100;300;400;700&family=Cinzel:wght@400;700&display=swap');
+
+/* General Global Setting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #FDFCFB 0%, #F4EEE8 100%); /* Boho Nude */
+    font-family: "Montserrat", sans-serif;
+    position: relative;/*add this*/
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/base.png'); /* Ensure this path is correct */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; 
+    pointer-events: none;
+}
+
+
+/*============================================================================================
+    # Wrapper Overlay (Original Stable Version)
+============================================================================================*/
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    
+    /* 1. Start invisible instantly, NO transition here */
+    opacity: 0; 
+    visibility: hidden; 
+    
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* 2. Only transition when adding this class */
+.wrapper.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1s ease-out; 
+}
+
+/* 3. Transition for when we click 'Buka' */
+.wrapper.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease-in-out, visibility 2s;
+}
+
+.overlay {
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* THE FIX: Apply the image AND the semi-transparent cover here */
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                url('../images/intro2-bg.png'); 
+    
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(93, 64, 55, 0.2);
+    /* ADD THIS LINE */
+    overflow: hidden;
+}
+
+
+.overlay .overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* If your image has text/design in the middle, we can add a slight blur 
+       or just leave it transparent to show your artwork */
+    background: rgba(255, 255, 255, 0.1); 
+}
+
+.overlay .overlay-content .toggle-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 130px;
+    height: 130px;
+    cursor: pointer;
+    border: 2px solid #BCA89F;
+    box-shadow: 0 8px 15px rgba(93, 64, 55, 0.15);
+    transition: transform 0.3s ease;
+}
+
+/* Optional: Slight hover effect for the button */
+.overlay .overlay-content .toggle-button:hover {
+    transform: scale(1.05);
+}
+
+.overlay .overlay-content .toggle-button p {
+    font-family: "Great Vibes", cursive;
+    font-size: 28px;
+    color: #5D4037;
+    line-height: 1;
+}
+
+.overlay .overlay-content .toggle-button .buka {
+    font-family: "Cinzel", serif;
+    font-size: 14px;
+    color: #BCA89F;
+    margin-top: 8px;
+    letter-spacing: 2px;
+}
+
+/* In the Buka Page */
+.overlay .overlay-content img {
+    width: 50%; /* Match the width of the card image */
+    height: auto; 
+}
+
+/*============================================================================================
+    # Animation
+============================================================================================*/
+.reveal.active {
+    opacity: 1;
+}
+
+.active.fade-bottom {
+    animation: fade-bottom 1s ease-in-out;
+}
+
+@keyframes fade-bottom {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.fade-top-1 {
+    animation: growth 0.5s ease-in-out;
+}
+
+.fade-top-2 {
+    animation: growth 0.8s ease-in-out;
+}
+
+.fade-top-3 {
+    animation: growth 1s ease-in-out;
+}
+
+.fade-top-4 {
+    animation: growth 1.2s ease-in-out;
+}
+
+@keyframes growth {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+        /* transform: translateY(-50px);
+        opacity: 0; */
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        /* transform: translateY(0);
+        opacity: 1; */
+    }
+}
+
+.divider {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 20px;
+}
+
+/*============================================================================================
+    # Background Animation
+============================================================================================*/
+.petal-container {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    /* Full width within the card */
+    height: 100%;
+    /* Full height within the card */
+    top: 0;
+    left: 0;
+}
+
+.petal {
+    position: absolute;
+    left: -10px;
+    /* Start just off the left edge of the card */
+    background: linear-gradient(to right, #ebdcc3, #efb3a6, #d76e7d);
+    border-radius: 50%;
+    /* Rounded shape */
+    opacity: 0.5;
+    animation: fall 60s linear;
+    /* Animation duration */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        /* Initial state */
+    }
+
+    100% {
+        transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
+        /* Diagonal path with variable translation */
+    }
+}
+
+
+/*============================================================================================
+    # Card
+============================================================================================*/
+.card {
+    /* CHANGE: Instead of none, we keep it in layout but invisible */
+    display: block; 
+    opacity: 0;
+    visibility: hidden; /* This prevents clicking things inside while hidden */
+    
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    background: transparent;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 16px;
+    font-family: "Roboto", sans-serif;
+    position: relative;
+    overflow: hidden;
+    
+    /* ADD: This is the speed of the fade-in */
+    transition: opacity 2s ease-in-out;
+
+    padding-bottom: 50px; /* Gives extra space so content can be scrolled above the pill menu */
+}
+
+/* This is the class your JavaScript will add to make it fade in */
+.card.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+section {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+/*============================================================================================
+    # Intro
+============================================================================================*/
+.card section.intro {
+    background: url(../images/intro2-bg.png); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* CHANGE: Use 100vh to match the Buka page perfectly */
+    height: 100vh; 
+    /* CHANGE: Use flexbox to center instead of padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+    border-bottom: 1px solid rgb(195, 195, 195);
+}
+
+.card section.intro .content {
+    /* CHANGE: Removed padding: 200px 0px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+
+.card section.intro .content p.title {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: #565a2f;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 1px;
+}
+
+.card section.intro .content h2 {
+    margin-top: 5px;    /* Reduced from 50px */
+    margin-bottom: 5px; /* Reduced from 50px */
+    line-height: 1.2;    /* Keeps the script font from taking too much vertical space */
+    font-family: "Allura", cursive;
+    font-size: 48px;
+    font-weight: 500;
+    color: #565a2f;
+}
+/* In the Card Page */
+.card section.intro .content img {
+    width: 50%; 
+    height: auto; /* Changed from 10% to auto to prevent squishing */
+}
+
+.card section.intro .content .venue {
+    margin-top: 5px;     /* Tighten address lines */
+    margin-bottom: 5px;
+    color: #565a2f;
+    font-family: "Times New Roman", Times, serif;
+    letter-spacing: 1px;
+    margin: 2px 0; /* This brings the address lines very close together */
+    font-size: 14px;
+}
+
+/*============================================================================================
+    # Event Info
+============================================================================================*/
+.card section.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 50px 0px;
+    background: transparent;
+    min-height: 100vh;
+}
+
+.card section.info .assalamualaikum {
+    width: 90%;
+    height: 30%;
+    object-fit: cover;
+    position: relative;
+    z-index: 500;
+}
+
+.card section.info .event-info {
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 500;
+}
+
+.card section.info .event-info p {
+    font-family: 'Montserrat', sans-serif;
+    color: #565a2f;
+}
+
+.card section.info .event-info .one {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.card section.info .event-info .three,
+.card section.info .event-info .four {
+    margin-bottom: 15px;
+}
+
+.card section.info .event-info .one p,
+.card section.info .event-info .three p,
+.card section.info .event-info .four p,
+.card section.info .event-info .five p {
+    color: #565a2f;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.card section.info .event-info .one .parent {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.card section.info .event-info .one .parent p {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.card section.info .event-info .two {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.card section.info .event-info .two p {
+    font-family: 'Montserrat', sans-serif;
+    color: #d76e7d; 
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.card section.info .event-info .three .title,
+.card section.info .event-info .four .title,
+.card section.info .event-info .five .title {
+    margin-top: 30px;
+}
+
+.card section.info .event-info .three .title,
+.card section.info .event-info .four .title,
+.card section.info .event-info .five .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+
+
+
+/*============================================================================================
+    # Countdown Timer
+============================================================================================*/
+.card section.info .countdown .counter h1,
+.card section.info .countdown .counter h2,
+.card section.info .countdown .counter h3,
+.card section.info .countdown .counter h4,
+.card section.info .countdown .counter h5 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    color: #efebe0;
+    padding: 0;
+    margin: 0;
+}
+
+.card section.info .countdown .counter p,
+.card section.info .countdown .counter span {
+    color: #d6d6d6b3;
+}
+
+
+.card section.info .countdown .container {
+    flex-grow: 1;
+    margin: 0 auto;
+    position: relative;
+    width: auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .card section.info .countdown .container {
+        max-width: 960px;
+    }
+}
+
+@media screen and (min-width: 1204px) {
+    .card section.info .countdown .container {
+        max-width: 1140px;
+    }
+
+    .card section.info .countdown .container {
+        max-width: 1140px;
+    }
+}
+
+.card section.info .countdown .hero {
+    background: transparent;
+    min-height: 70vh;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero {
+        min-height: auto;
+    }
+}
+
+.card section.info .countdown .hero .hero-body .campaign {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.card section.info .countdown .hero.connect-page {
+    min-height: auto;
+}
+
+.card section.info .countdown .hero .hero-body {
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero .hero-body {
+        padding: 2rem 0;
+    }
+}
+
+.card section.info .countdown .section.pair .pair-steps .step .step-number .value {
+    color: #fff;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.card section.info .countdown .hero .hero-body .counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero .hero-body .counter {
+        margin: 2rem 0 0;
+    }
+}
+
+.card section.info .countdown .hero .hero-body .counter .title {
+    color: #9c9c9c;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 2px #0003;
+}
+
+.card section.info .countdown .hero .hero-body .counter .counter-boxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box {
+    background-color: #5a601f;
+    opacity: 0.4;
+    box-shadow: 0 5px 10px #0000004d;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin-right: 4px;
+    text-shadow: 0 1px 0 #0000004d;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+.card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box h1 {
+    color: #fff;
+    padding: 8px 0 0;
+    margin: 0;
+    font-size: 2.5rem;
+    line-height: 2rem;
+    /* Updated Line Below */
+    font-family: "Times New Roman", Times, serif;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box h1 {
+        font-size: 2rem;
+    }
+}
+
+.card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box span {
+    color: #9c9c9c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+    .card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box span {
+        font-size: 10px;
+        letter-spacing: 0;
+    }
+}
+
+.card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box:last-of-type {
+    margin-right: 0;
+}
+
+.card section.info .countdown .container {
+    width: 100%;
+    z-index: 500;
+}
+
+
+
+/*============================================================================================
+    # Aturcara
+============================================================================================*/
+.card section.info .aturcara {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    z-index: 500;
+    position: relative;
+}
+
+.card section.info .aturcara p {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #565a2f;
+}
+
+.card section.info .aturcara .title {
+    color: #565a2f;
+   font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.card section.info .aturcara .one,
+.card section.info .aturcara .two,
+.card section.info .aturcara .three,
+.card section.info .aturcara .four {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card section.info .aturcara .one p,
+.card section.info .aturcara .two p,
+.card section.info .aturcara .three p,
+.card section.info .aturcara .four p {
+    color: #565a2f;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.card section.info .aturcara .one p:nth-child(2),
+.card section.info .aturcara .two p:nth-child(2),
+.card section.info .aturcara .three p:nth-child(2),
+.card section.info .aturcara .four p:nth-child(2) {
+    color: darkgrey;
+}
+
+
+
+
+
+/*============================================================================================
+    # Ucapan
+============================================================================================*/
+.card section.info .ucapan .container {
+    position: relative;
+    max-width: 100%;
+    /* REMOVE: height: 100% (Let the content define the height) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 0 20px; /* Adds a little safety space on the sides */
+    z-index: 500;
+}
+
+.card section.info .ucapan .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 70%;
+}
+
+.card section.info .ucapan .content p {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    color: #5a601f;
+    margin: 0;
+    
+    /* THE FIXES */
+    text-align: justify;        /* Aligns both sides */
+    text-justify: inter-word;  /* Evenly distributes space between words */
+    line-height: 1.5;          /* Adds breathing room between lines so they don't 'stack' */
+    hyphens: auto;             /* Breaks long words if needed to prevent big gaps */
+}
+
+.card section.info .ucapan img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/*============================================================================================
+    # RSVP
+============================================================================================*/
+.card section.main-content .rsvp {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    z-index: 500;
+    gap: 20px; /* Ensures vertical spacing between title, list, and buttons */
+    padding-bottom: 80px; /* Add this to push content away from the bottom footer */
+}
+
+.card section.main-content .rsvp h2 {
+    text-transform: uppercase;
+    color: #565a2f;
+    text-align: center;
+    margin-bottom: 10px; /* Reduced to keep layout tight */
+}
+
+.card section.main-content .rsvp .container-message {
+    width: 90%; /* Better fit for mobile */
+    height: 350px; /* Balanced height to prevent pushing buttons off-screen */
+    overflow-y: auto;
+    padding: 16px;
+    background: rgba(255, 252, 246, 0.4); /* Glassy version of your #fffcf6 */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    height: auto;               /* Remove fixed height */
+    max-height: 40vh;          /* Box will take up max 40% of the screen height */
+    min-height: 150px;         /* Ensures it doesn't look too small with few messages */
+    overflow-y: auto;
+}
+
+/* Individual Message Styling */
+.card section.main-content .rsvp .container-message .content {
+    overflow: hidden;
+    width: 100%;
+    white-space: normal;
+    border-bottom: 1px solid rgba(86, 90, 47, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.card section.main-content .rsvp .container-message .content p.name {
+    color: #565a2f; /* Changed from darkcyan to match theme */
+    font-weight: 700;
+}
+
+.card section.main-content .rsvp .container-message .content p.message {
+    color: #707070;
+    font-size: 14px;
+}
+
+/* Main RSVP Buttons: Sahkan Kehadiran & Berikan Ucapan */
+.card section.info .rsvp .beri-ucapan-button {
+    width: 90%;
+    display: flex;
+    flex-direction: row; /* Force side-by-side */
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px; /* Extra space at the very bottom of the buttons */
+    position: relative;
+    z-index: 501; /* Ensure it stays above background decorations */
+}
+
+.card section.info .rsvp .beri-ucapan-button button {
+    flex: 1; /* Makes both buttons equal width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 252, 246, 0.7); /* Glass ivory */
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.card section.info .rsvp .beri-ucapan-button button:hover {
+    background: #fffcf6;
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.card section.info .rsvp .beri-ucapan-button button .bx {
+    font-size: 18px;
+    color: #565a2f; /* Consistent green */
+}
+
+.card section.info .rsvp .beri-ucapan-button button span {
+    font-size: 12px;
+    color: #565a2f;
+    font-weight: 600;
+    white-space: nowrap;
+}
+/*============================================================================================
+    # Footer
+============================================================================================*/
+.footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.footer ul.menu {
+    max-width: 380px; /* Slightly narrower to show the curved ends */
+    width: 90%;      /* Ensures it doesn't touch the screen edges on small phones */
+    background: rgba(90, 96, 31, 0.7); /* Semi-transparent green (70% opacity) */
+    backdrop-filter: blur(10px);       /* Adds a modern "glass" effect behind the green */
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* THE PILL SHAPE */
+    border-radius: 50px; /* High value creates the circular ends */
+    height: 4rem;
+    padding: 0 20px;
+    
+    /* POSITIONING */
+    margin: 0 auto 15px auto; /* Added 15px at the bottom to make it 'float' */
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.footer ul.menu li {
+    cursor: pointer;
+}
+
+.footer .bx {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+
+
+
+/*============================================================================================
+    # Bottom Toggle
+============================================================================================*/
+.toggle-menu {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    max-width: 380px; /* Matching the footer width for a consistent look */
+    margin: 0 auto;
+    
+    /* THE SEMI-TRANSPARENT GREEN */
+    background: rgba(90, 96, 31, 0.85); /* Slightly more solid than footer for readability */
+    backdrop-filter: blur(12px);       /* Glass effect */
+    -webkit-backdrop-filter: blur(12px);
+    
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother slide */
+    z-index: 999; /* Just below the footer if they overlap, or 1001 to stay on top */
+    border-radius: 25px; /* Softer corners to match the pill theme */
+}
+
+.toggle-menu.open {
+    /* ADJUST THIS: Pushes the pop-up higher above the floating footer */
+    bottom: 90px; 
+}
+
+.toggle-menu h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+    font-family: "Times New Roman";
+    text-transform: uppercase;
+}
+
+.toggle-menu .calendar,
+.toggle-menu .location,
+.toggle-menu .music,
+.toggle-menu .rsvp,
+.toggle-menu .contact,
+.toggle-menu .ucapan-tetamu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.toggle-menu .calendar p {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.toggle-menu .calendar p span {
+    font-size: 16px;
+    font-family: "Times New Roman";
+    color: white;
+}
+
+.toggle-menu .calendar .button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.toggle-menu .calendar .button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    width: 250px;
+    height: 40px;
+    cursor: pointer;
+    background: #fffcf6;
+}
+
+.toggle-menu .calendar .button button:hover {
+    background: #fffcf6;
+    opacity: 0.9;
+}
+
+.toggle-menu .calendar .button button .bx {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.toggle-menu .calendar .button button .bxl-google,
+.toggle-menu .location .button button .bxl-google {
+    background: linear-gradient(to bottom left, transparent 49%, #fbbc05 50%) 0 25%/48% 40%,
+        linear-gradient(to top left, transparent 49%, #fbbc05 50%) 0 75%/48% 40%,
+        linear-gradient(-40deg, transparent 53%, #ea4335 54%),
+        linear-gradient(45deg, transparent 46%, #4285f4 48%), #34a853;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.toggle-menu .calendar .button button span {
+    font-size: 16px;
+    font-family: "Times New Roman";
+}
+
+.toggle-menu .location p {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: "Times New Roman";
+    color: white;
+}
+
+.toggle-menu .location .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.toggle-menu .location .button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    width: 180px;
+    height: 35px;
+    cursor: pointer;
+    background: #fffcf6;
+}
+
+.toggle-menu .location .button button:hover {
+    background: #fffcf6;
+    opacity: 0.9;
+}
+
+.toggle-menu .location .button button .bx,
+.toggle-menu .location .button button .fa-waze {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#music-menu {
+    padding: 20px 6px;
+}
+
+.toggle-menu .music p {
+    font-size: 16px;
+    font-family: "Times New Roman";
+    color: wheat;
+    text-align: center;
+}
+
+#audio-player {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.toggle-menu .rsvp .button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px; /* This stops the auto-zoom */
+}
+
+/* This targets the actual text you type in the box */
+#guest-name-input {
+    font-size: 16px !important; 
+    font-family: inherit; /* Optional: makes it match the rest of your font */
+}
+
+/* This targets the placeholder text specifically */
+#guest-name-input::placeholder {
+    font-size: 14px;
+}
+
+.toggle-menu .rsvp .button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    padding: 8px 6px;
+    border: none;
+    border-radius: 5px;
+    gap: 5px;
+    cursor: pointer;
+    background: #fffcf6;
+    font-size: 16px; /* This stops the auto-zoom */
+}
+
+.toggle-menu .rsvp .button button:hover {
+    background: #fffcf6;
+    opacity: 0.9;
+}
+
+.toggle-menu .rsvp .button button i {
+    font-size: 24px;
+    font-family: "Times New Roman";
+}
+
+.toggle-menu .rsvp .button #btn-hadir i {
+    color: green;
+}
+
+.toggle-menu .rsvp .button #btn-tidak-hadir i {
+    color: red;
+}
+
+
+.toggle-menu .contact .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.toggle-menu .contact .content .person {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toggle-menu .contact .content .person button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-menu .contact .content .person .first-section {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-menu .contact .content .person .first-section .bx {
+    font-size: 30px;
+    color: darkcyan;
+}
+
+.toggle-menu .contact .content .person .first-section .name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.toggle-menu .contact .content .person .first-section .name span {
+    font-size: 14px;
+    font-family: "Times New Roman";
+    color: #fffcf6;
+    font-weight: 700;
+}
+
+.toggle-menu .contact .content .person .first-section .name span:nth-child(2) {
+    font-style: italic;
+    font-weight: 300;
+    font-size: 12;
+    color: lightgray;
+}
+
+.toggle-menu .contact .content .person .second-section {
+    display: flex;
+    gap: 10px;
+}
+
+.toggle-menu .contact .content .person .second-section .bx {
+    color: #fffcf6;
+    font-size: 30px;
+}
+
+.toggle-menu .ucapan-tetamu form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.toggle-menu .ucapan-tetamu form label {
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.toggle-menu .ucapan-tetamu form input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    outline: none;
+    font-size: 16px; /* This stops the auto-zoom */
+}
+
+.toggle-menu .ucapan-tetamu form textarea {
+    width: 100%;
+    resize: none;
+    padding: 12px 16px;
+    outline: none;
+    border-radius: 12px;
+    font-size: 16px; /* This stops the auto-zoom */
+}
+
+.toggle-menu .ucapan-tetamu .button {
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Side by side */
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.toggle-menu .ucapan-tetamu .button button {
+    flex: 1; /* Balanced width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 12px 5px;
+    cursor: pointer;
+    background: #fffcf6;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.toggle-menu .ucapan-tetamu .button button i {
+    font-size: 20px;
+}
+
+.toggle-menu .ucapan-tetamu .button button span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #565a2f; /* Softened text color */
+}
+
+/* Specific Icon Colors for Modal */
+.toggle-menu .ucapan-tetamu .button button i.bxs-paper-plane {
+    color: #565a2f; /* Matched to green theme */
+}
+
+.toggle-menu .ucapan-tetamu .button button i.bx-x {
+    color: #e74c3c; /* Keep red for 'Tutup' but slightly softer */
+}
+
+.toggle-menu .success-message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px 16px 20px 16px;
+    gap: 10px;
+}
+
+.toggle-menu .success-message i {
+    font-size: 64px;
+    color: greenyellow;
+}
+
+.toggle-menu .success-message .bx.bxs-sad {
+    color: grey;
+}
+
+.toggle-menu .success-message p {
+    font-size: 16px;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+/* The Main Glass Container */
+.container-message {
+    width: 100%;
+    max-width: 900px;
+    height: 350px;
+    margin: 40px auto; /* Added more gap above */
+    padding: 0;
+    
+    /* THE CLEAR GLASS FIX */
+    background: rgba(255, 255, 255, 0.15); /* Very clear, barely pink tint */
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    
+    /* THE SILHOUETTE SHADOW */
+    /* This creates that 'floating' glass depth effect */
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.15), 
+        inset 0 0 20px rgba(255, 192, 203, 0.1); 
+    
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* The Title as a Header INSIDE the box */
+.container-message h2 {
+    width: 100%;
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 22px;
+    color: #565a2f;
+    background: rgba(255, 255, 255, 0.2); /* Slightly distinct header area */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: "Cinzel", serif; /* Or your preferred font */
+}
+
+/* The Scrollable Area */
+.wish-list-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 20px;
+    scroll-behavior: smooth;
+}
+
+/* Individual Wishes inside the glass */
+.container-message .content {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Removing border for the last one to look clean */
+.container-message .content:last-child {
+    border-bottom: none;
+}
+
+/* Maintain text formatting */
+.container-message .name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Timestamp in AM/PM format styling */
+.wish-time {
+    font-size: 11px;
+    color: #707070;
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Specific styling for the Latest/New Wish */
+.container-message .content:first-child {
+    border-left: 4px solid #d4af37;
+    background: rgba(212, 175, 55, 0.1); /* Slightly stronger tint for the newest */
+    padding-left: 10px;
+    /* Apply the new animation */
+    animation: dropAndGlow 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* New Wish Animation Logic */
+@keyframes dropAndGlow {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+        background-color: rgba(212, 175, 55, 0.4); /* Brighter glow at start */
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(5px) scale(1.02); /* Slight bounce overreach */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        background-color: rgba(212, 175, 55, 0.05); /* Settles to subtle tint */
+    }
+}
+
+.wish-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* Other properties you already have... */
+}
+
+.container-message .content {
+    /* Prevents the elements below from 'jumping' instantly */
+    transition: all 0.4s ease; 
+}
+
+
+
+
+.gallery-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 40px auto;
+    text-align: center;
+    perspective: 1000px; /* Gives it 3D depth */
+}
+
+.gallery-stack {
+    position: relative;
+    width: 280px; /* Matching the square size in your sample */
+    height: 280px;
+    margin: 0 auto;
+}
+
+.stack-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 8px solid #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    /* CHANGE: Slower duration (0.7s) and smoother movement */
+    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+    cursor: grab;
+    user-select: none;
+    touch-action: none; /* Prevents the whole page from scrolling while swiping photos */
+}
+
+.swipe-hint {
+    margin-top: 30px;
+    font-size: 13px;
+    color: #BCA89F;
+    font-family: "Times New Roman";
+}
+/*============================================================================================
+    # Image Carousel
+============================================================================================*/
