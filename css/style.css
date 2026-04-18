@@ -220,25 +220,18 @@ body::before {
 
 .petal {
     position: absolute;
-    left: -10px;
-    /* Start just off the left edge of the card */
-    background: linear-gradient(to right, #ebdcc3, #efb3a6, #d76e7d);
-    border-radius: 50%;
-    /* Rounded shape */
-    opacity: 0.5;
-    animation: fall 60s linear;
-    /* Animation duration */
+    /* The Leaf Shape */
+    background: linear-gradient(135deg, #7fb39d 0%, #5a937a 100%); 
+    border-radius: 0 100% 0 100%; 
+    pointer-events: none;
+    animation: leaf-fall linear forwards;
 }
 
-@keyframes fall {
-    0% {
-        transform: translateX(0) rotate(0deg);
-        /* Initial state */
-    }
-
-    100% {
-        transform: translateX(var(--translate-x)) translateY(var(--translate-y)) rotate(720deg);
-        /* Diagonal path with variable translation */
+@keyframes leaf-fall {
+    to {
+        /* This makes it fall to the coordinates AND spin */
+        transform: translate(var(--translate-x), var(--translate-y)) rotate(450deg);
+        opacity: 0;
     }
 }
 
