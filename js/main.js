@@ -366,7 +366,7 @@ const kehadiranBtn = document.getElementById("kehadiran-btn");
 /** =====================================================
  * Wish Card Board Handling (Google Sheets Version)
  * ===================================================== */
-const wishApiUrl = "https://script.google.com/macros/s/AKfycbz4igYuZwxT0lI3j2uC3igBvVQEZFWvVZRJQZ5RNIgEIeg_UHLnqyeYk9uq1iokMJC8FA/exec"; 
+const wishApiUrl = "https://script.google.com/macros/s/AKfycbxy3e5qkht5g6eY-LmPdMXX9XlTzv1UPmGYGUzmFwMZj_CqmJvJJo3jBn3RMt-OwW0g1w/exec"; 
 let hasSubmittedWish = false;
 
 // Helper function for Malaysian AM/PM Format
