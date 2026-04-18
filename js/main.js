@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
-setupCountdown(".campaign-0", new Date().getTime(), 1783742400000);
+setupCountdown(".campaign-0", new Date().getTime(), 1787369400000);
 
 
 
@@ -108,9 +108,9 @@ setupCountdown(".campaign-0", new Date().getTime(), 1783742400000);
   ======================================================= */
 const event = {
     title: "Jemputan Kenduri Kahwin Putri & Amirul",
-    startDate: "20260711T030000Z", // YYYYMMDDTHHmmssZ (UTC)
-    endDate: "20260711T080000Z",
-    location: "Kingsman Event Hall, Jalan Kontraktor U1/14, Hicom-glenmarie Industrial Park, 40150 Shah Alam, Selangor",
+    startDate: "20260822T030000Z", // YYYYMMDDTHHmmssZ (UTC)
+    endDate: "20260822T080000Z",
+    location: "Bayu Bay Hall, Jalan Balik Bukit",
     description: "Kami menjemput tuan/puan hadir ke majlis perkahwinan anakanda kami.",
 };
 
@@ -175,16 +175,16 @@ function addGoogleCalendar() {
  *  Location for Google and Waze
   ======================================================= */
 function openGoogleMaps() {
-    // Exact Place ID for Victoria Event Hall, Utropolis Glenmarie
-    const placeId = "ChIJJe7mxZ9NzDEReyyIHgMHW4o";
-    const url = `https://www.google.com/maps/search/?api=1&query=Victoria+Event+Hall&query_place_id=${placeId}`;
+    // Official URL for Bayu Bay Hall, Kuala Terengganu
+    const url = "https://www.google.com/maps/search/?api=1&query=Bayu+Bay+Hall&query_place_id=ChIJmz72BAC_tzERXOzl6ZN2nDk";
     window.open(url, "_blank");
 }
 
 function openWaze() {
-    const lat = 3.0913915;
-    const lng = 101.558229;
-    // This deep link tells Waze to navigate exactly to those coordinates
+    // Coordinates for Bayu Bay Hall
+    const lat = 5.3280508;
+    const lng = 103.1322761;
+    // Deep link to navigate directly to the venue
     window.open(`https://waze.com/ul?ll=${lat},${lng}&navigate=yes&zoom=17`, "_blank");
 }
 
@@ -196,7 +196,7 @@ function openWaze() {
     Contact
   ======================================================= */
 function openWhatsApp(phoneNumber) {
-    const message = "https://wedding-invitation-putri-amirul.vercel.app/\n\nHello, maaf menggangu. Saya ingin bertanyakan sesuatu berkenaan majlis perkahwinan ini.";
+    const message = "https://jemputan-kahwin.vercel.app/?v=0\n\nHai, maaf menggangu. Saya ingin bertanyakan sesuatu berkenaan majlis perkahwinan ini.";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, "_blank");  // Opens WhatsApp in a new tab
 }
@@ -250,34 +250,39 @@ function createPetal() {
         const petal = document.createElement('div');
         petal.className = 'petal';
 
-        const startY = Math.random() * 100; // Randomized vertical start position
-        const duration = 4 + Math.random() * 2; // Randomized animation duration (4 to 6 seconds)
+        // 1. Set a random starting rotation (0 to 360 degrees)
+        const startRotation = Math.random() * 360;
+        
+        const startY = Math.random() * 100; 
+        const duration = 4 + Math.random() * 2; 
+        const petalSize = 5 + Math.random() * 10; 
+        const petalOpacity = 0.3 + Math.random() * 0.5; 
 
-        const petalSize = 5 + Math.random() * 10; // Random size between 5px and 20px
-
-        // Randomize the opacity between 0.3 and 0.8 for varied transparency
-        const petalOpacity = 0.3 + Math.random() * 0.5; // Randomized opacity
-
-        petal.style.top = `${startY}%`; // Randomized starting vertical position
+        // Apply styles
+        petal.style.top = `${startY}%`; 
         petal.style.width = `${petalSize}px`;
         petal.style.height = `${petalSize}px`;
-        petal.style.opacity = petalOpacity; // Set the random opacity
-        petal.style.animationDuration = `${duration}s`; // Randomized animation duration
+        petal.style.opacity = petalOpacity; 
+        petal.style.animationDuration = `${duration}s`; 
 
-        // Randomize the final translation for X and Y for varied movement
-        const translateX = 300 + Math.random() * 120; // TranslateX with some randomness
-        const translateY = 300 + Math.random() * 120; // TranslateY with some randomness
+        // 2. Apply the initial rotation style
+        petal.style.transform = `rotate(${startRotation}deg)`;
 
-        petal.style.setProperty('--translate-x', `${translateX}px`); // Set variable for translation X
-        petal.style.setProperty('--translate-y', `${translateY}px`); // Set variable for translation Y
+        const translateX = 300 + Math.random() * 120; 
+        const translateY = 300 + Math.random() * 120; 
+
+        petal.style.setProperty('--translate-x', `${translateX}px`); 
+        petal.style.setProperty('--translate-y', `${translateY}px`); 
 
         petalContainer.appendChild(petal);
 
-        // Ensure the petal is removed only after the animation completes
         setTimeout(() => {
-            petalContainer.removeChild(petal);
-        }, duration * 1000); // Convert duration to milliseconds
+            if (petalContainer.contains(petal)) {
+                petalContainer.removeChild(petal);
+            }
+        }, duration * 1000); 
     }
+}
 }
 
 // Create petals at a shorter interval with the defined interval time
@@ -366,7 +371,7 @@ const kehadiranBtn = document.getElementById("kehadiran-btn");
 /** =====================================================
  * Wish Card Board Handling (Google Sheets Version)
  * ===================================================== */
-const wishApiUrl = "https://script.google.com/macros/s/AKfycbxHW_WAUJBE6yjUkFZB7yvC84XmCH5MDWS9OAUZC_XXiXofmXQxRKls-vcnkAU1tNMTmQ/exec"; 
+const wishApiUrl = "https://script.google.com/macros/s/AKfycbz4igYuZwxT0lI3j2uC3igBvVQEZFWvVZRJQZ5RNIgEIeg_UHLnqyeYk9uq1iokMJC8FA/exec"; 
 let hasSubmittedWish = false;
 
 // Helper function for Malaysian AM/PM Format
@@ -512,7 +517,7 @@ function sendQuickRSVP(status, successMessage, iconClass) {
         return;
     }
 
-    const rsvpformspreeUrl = "https://formspree.io/f/xvzzpjgn";
+    const rsvpformspreeUrl = "https://formspree.io/f/mpqqzbqa";
 
     const nameInput = document.getElementById("guest-name-input");
     const guestName = nameInput ? nameInput.value.trim() : "";
