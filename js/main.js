@@ -109,7 +109,7 @@ setupCountdown(".campaign-0", new Date().getTime(), 1787369400000);
 const event = {
     title: "Jemputan Kenduri Kahwin Putri & Amirul",
     startDate: "20260822T033000Z", // YYYYMMDDTHHmmssZ (UTC)
-    endDate: "20260822T083000Z",
+    endDate: "20260822T080000Z",
     location: "Bayu Bay Hall, Jalan Balik Bukit",
     description: "Kami menjemput tuan/puan hadir ke majlis perkahwinan anakanda kami.",
 };
