@@ -9,7 +9,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #FDFCFB 0%, #8a1d37 0%); /* Crimson */
+    background: linear-gradient(to right, #FDFCFB 0%); 
     font-family: "Montserrat", sans-serif;
     position: relative;/*add this*/
     overflow-x: hidden;
