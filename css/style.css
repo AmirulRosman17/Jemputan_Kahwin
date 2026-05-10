@@ -860,7 +860,8 @@ section {
 .footer ul.menu {
     max-width: 380px; /* Slightly narrower to show the curved ends */
     width: 90%;      /* Ensures it doesn't touch the screen edges on small phones */
-    background: rgba(220, 20, 60, 0.5); /* Semi-transparent Crimson (70% opacity) */
+    background: rgba(128, 0, 0, 0.5);/* Dark Maroon (50% opacity) */
+
     backdrop-filter: blur(10px);       /* Adds a modern "glass" effect behind the green */
     -webkit-backdrop-filter: blur(10px);
     
@@ -904,7 +905,7 @@ section {
     margin: 0 auto;
     
     /* THE SEMI-TRANSPARENT GREEN */
-    background: rgba(220, 20, 60, 0.85); /* Slightly more solid than footer for readability */
+    background: rgba(128, 0, 0, 0.5); /* Slightly more solid than footer for readability */
     backdrop-filter: blur(12px);       /* Glass effect */
     -webkit-backdrop-filter: blur(12px);
     
