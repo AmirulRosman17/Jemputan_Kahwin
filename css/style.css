@@ -9,7 +9,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #FDFCFB 0%, #8a1d37 100%); /* Crimson */
+    background: linear-gradient(to right, #FDFCFB 0%, #8a1d37 0%); /* Crimson */
     font-family: "Montserrat", sans-serif;
     position: relative;/*add this*/
     overflow-x: hidden;
@@ -428,7 +428,7 @@ section {
 
 .card section.info .event-info .two p {
     font-family: 'Montserrat', sans-serif;
-    color: #ffde59; 
+    color: #efb5b4; 
     font-weight: 700;
     font-size: 14px;
 }
@@ -552,7 +552,7 @@ section {
 }
 
 .card section.info .countdown .hero .hero-body .counter .title {
-    color: #9c9c9c;
+    color: #8a1d37;
     font-size: 1rem;
     font-weight: 700;
     font-family: 'Montserrat', sans-serif;
@@ -653,11 +653,11 @@ section {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     letter-spacing: 1px;
-    color: #565a2f;
+    color: #8a1d37;
 }
 
 .card section.info .aturcara .title {
-    color: #565a2f;
+    color: #8a1d37;
    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     font-weight: 700;
@@ -677,7 +677,7 @@ section {
 .card section.info .aturcara .two p,
 .card section.info .aturcara .three p,
 .card section.info .aturcara .four p {
-    color: #565a2f;
+    color: #8a1d37;
     font-weight: 300;
     font-size: 14px;
     letter-spacing: 1px;
@@ -722,7 +722,7 @@ section {
 .card section.info .ucapan .content p {
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
-    color: #5a601f;
+    color: #8a1d37;
     margin: 0;
     
     /* THE FIXES */
@@ -758,7 +758,7 @@ section {
 
 .card section.main-content .rsvp h2 {
     text-transform: uppercase;
-    color: #565a2f;
+    color: #8a1d37;
     text-align: center;
     margin-bottom: 10px; /* Reduced to keep layout tight */
 }
@@ -790,7 +790,7 @@ section {
 }
 
 .card section.main-content .rsvp .container-message .content p.name {
-    color: #565a2f; /* Changed from darkcyan to match theme */
+    color: #8a1d37; /* Changed from darkcyan to match theme */
     font-weight: 700;
 }
 
@@ -836,12 +836,12 @@ section {
 
 .card section.info .rsvp .beri-ucapan-button button .bx {
     font-size: 18px;
-    color: #565a2f; /* Consistent green */
+    color: #8a1d37; /* Consistent green */
 }
 
 .card section.info .rsvp .beri-ucapan-button button span {
     font-size: 12px;
-    color: #565a2f;
+    color: #8a1d37;
     font-weight: 600;
     white-space: nowrap;
 }
@@ -859,7 +859,7 @@ section {
 .footer ul.menu {
     max-width: 380px; /* Slightly narrower to show the curved ends */
     width: 90%;      /* Ensures it doesn't touch the screen edges on small phones */
-    background: rgba(90, 96, 31, 0.7); /* Semi-transparent green (70% opacity) */
+    background: rgba(220, 20, 60, 0.7); /* Semi-transparent Crimson (70% opacity) */
     backdrop-filter: blur(10px);       /* Adds a modern "glass" effect behind the green */
     -webkit-backdrop-filter: blur(10px);
     
@@ -903,7 +903,7 @@ section {
     margin: 0 auto;
     
     /* THE SEMI-TRANSPARENT GREEN */
-    background: rgba(90, 96, 31, 0.85); /* Slightly more solid than footer for readability */
+    background: rgba(220, 20, 60, 0.85); /* Slightly more solid than footer for readability */
     backdrop-filter: blur(12px);       /* Glass effect */
     -webkit-backdrop-filter: blur(12px);
     
