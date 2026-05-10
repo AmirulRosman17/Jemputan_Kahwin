@@ -9,7 +9,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #FDFCFB 0%, #F4EEE8 100%); /* Boho Nude */
+    background: linear-gradient(to right, #FDFCFB 0%, #8a1d37 100%); /* Crimson */
     font-family: "Montserrat", sans-serif;
     position: relative;/*add this*/
     overflow-x: hidden;
@@ -222,7 +222,7 @@ body::before {
     position: absolute;
     left: -10px;
     /* Start just off the left edge of the card */
-    background: linear-gradient(to right, #ebdcc3, #efb3a6, #d76e7d);
+    background: linear-gradient(to right, #ebdcc3, #efb3a6, #8a1d37);
     border-radius: 50%;
     /* Rounded shape */
     opacity: 0.5;
@@ -312,7 +312,7 @@ section {
 .card section.intro .content p.title {
     margin-top: 10px;
     margin-bottom: 20px;
-    color: #565a2f;
+    color: #8a1d37;
     text-transform: uppercase;
     font-size: 16px;
     font-weight: 700;
@@ -327,18 +327,19 @@ section {
     font-family: "Allura", cursive;
     font-size: 48px;
     font-weight: 500;
-    color: #565a2f;
+    color: #8a1d37;
 }
 /* In the Card Page */
 .card section.intro .content img {
     width: 50%; 
     height: auto; /* Changed from 10% to auto to prevent squishing */
+    margin-bottom: 10px;
 }
 
 .card section.intro .content .venue {
     margin-top: 5px;     /* Tighten address lines */
     margin-bottom: 5px;
-    color: #565a2f;
+    color: #8a1d37;
     font-family: "Times New Roman", Times, serif;
     letter-spacing: 1px;
     margin: 2px 0; /* This brings the address lines very close together */
@@ -376,7 +377,7 @@ section {
 
 .card section.info .event-info p {
     font-family: 'Montserrat', sans-serif;
-    color: #565a2f;
+    color: #8a1d37;
 }
 
 .card section.info .event-info .one {
@@ -396,7 +397,7 @@ section {
 .card section.info .event-info .three p,
 .card section.info .event-info .four p,
 .card section.info .event-info .five p {
-    color: #565a2f;
+    color: #8a1d37;
     font-weight: 300;
     font-size: 14px;
     letter-spacing: 1px;
@@ -427,7 +428,7 @@ section {
 
 .card section.info .event-info .two p {
     font-family: 'Montserrat', sans-serif;
-    color: #d76e7d; 
+    color: #ffde59; 
     font-weight: 700;
     font-size: 14px;
 }
@@ -567,11 +568,17 @@ section {
 }
 
 .card section.info .countdown .hero .hero-body .counter .counter-boxes .count-box {
-    background-color: #5a601f;
-    opacity: 0.4;
-    box-shadow: 0 5px 10px #0000004d;
+    /* THE THEME UPDATE */
+    background-color: #8a1d37; /* New Burgundy theme color */
+    
+    /* THE GLASS EFFECT MIX */
+    opacity: 0.3;             /* Lowered opacity so the color is less solid */
+    backdrop-filter: blur(8px); /* Slightly increased blur for better 'frosted' look */
+    -webkit-backdrop-filter: blur(8px); /* Required for Safari support */
+    
+    /* Maintain Structure & Size */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Softer shadow that suits the new color */
     border-radius: 8px;
-    backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
     align-items: center;
